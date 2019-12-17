@@ -1,5 +1,6 @@
 <template>
     	<div class="cinema_body">
+			<Scroller>
 				<ul>
 					<li>
 						<div>
@@ -86,6 +87,7 @@
        					</div>
 					</li>
 				</ul>
+				</Scroller>
 			</div>
 </template>
 
