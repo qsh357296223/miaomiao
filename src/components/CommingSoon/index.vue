@@ -1,5 +1,7 @@
 <template>
     <div class="movie_body">
+				<Loading v-if="isLoading" />
+				<Scroller v-else>
 				<ul>
 					
 					
@@ -29,6 +31,7 @@
 						</div>
 					</li>
 				</ul>
+				</Scroller>
 			</div>
 
 </template>
@@ -39,14 +42,21 @@ export default {
 	data(){
 		return{
 			comingList:[],
+			isLoading:true,
+			prevCityId:-1,
 		}
 	},
-	mounted(){
-		this.axios.get('/api/movieOnInfoList?cityId=10').then((res)=>{
+	activated(){
+		var cityId= this.$store.state.city.id;
+		if(this.prevCityId===cityId){return};
+		
+		this.axios.get('/api/movieOnInfoList?cityId='+cityId).then((res)=>{
 			var msg =res.data.msg;
 		
 			if(msg==="ok"){
 				this.comingList=res.data.data.movieList;
+				this.isLoading=false;
+				this.prevCityId=cityId
 				
 				
 			}
